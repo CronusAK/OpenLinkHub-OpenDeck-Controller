@@ -1,0 +1,11 @@
+{
+  "name": "com.sfgrimes.fanprofile",
+  "version": "0.1.0",
+  "description": "Fan Profile Control Plugin for OpenDeck",
+  "main": "index.js",
+  "author": "sfgrimes",
+  "license": "GPL-3.0-only",
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}

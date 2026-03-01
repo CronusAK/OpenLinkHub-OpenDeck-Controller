@@ -1,0 +1,51 @@
+{
+  "Name": "Fan Profile Control",
+  "Description": "Control Corsair fan speed profiles via OpenLinkHub.",
+  "Author": "sfgrimes",
+  "Version": "0.1.0",
+  "Icon": "icons/plugin",
+  "Category": "System",
+  "CategoryIcon": "icons/plugin",
+  "CodePathLin": "index.js",
+  "OS": [
+    {
+      "Platform": "linux",
+      "MinimumVersion": "5.0"
+    }
+  ],
+  "Software": {
+    "MinimumVersion": "2.5.0"
+  },
+  "SDKVersion": 2,
+  "Actions": [
+    {
+      "UUID": "com.sfgrimes.fanprofile.currentprofile",
+      "Name": "Current Fan Profile",
+      "Icon": "icons/fan",
+      "Tooltip": "Displays the currently active fan speed profile.",
+      "Controllers": ["Keypad"],
+      "States": [
+        {
+          "Image": "icons/fan",
+          "Name": "Default",
+          "TitleAlignment": "top"
+        }
+      ]
+    },
+    {
+      "UUID": "com.sfgrimes.fanprofile.setprofile",
+      "Name": "Set Fan Profile",
+      "Icon": "icons/fan-set",
+      "Tooltip": "Set the fan speed profile to the one selected in settings.",
+      "Controllers": ["Keypad"],
+      "PropertyInspectorPath": "propertyInspector/profileSettings.html",
+      "States": [
+        {
+          "Image": "icons/fan-set",
+          "Name": "Default",
+          "TitleAlignment": "top"
+        }
+      ]
+    }
+  ]
+}

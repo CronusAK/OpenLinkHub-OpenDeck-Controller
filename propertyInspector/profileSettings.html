@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Fan Profile Settings</title>
+  <link rel="stylesheet" href="sdpi.css" />
+</head>
+<body>
+  <div class="sdpi-wrapper">
+    <div class="sdpi-heading">Fan Profile</div>
+    <div class="sdpi-item">
+      <div class="sdpi-item-label">Profile</div>
+      <div class="sdpi-item-value">
+        <select id="profile-select">
+          <option value="" disabled selected>Loading...</option>
+        </select>
+      </div>
+    </div>
+    <div class="sdpi-info">Select the fan profile to apply when this key is pressed.</div>
+  </div>
+
+  <script src="sdpi-common.js"></script>
+  <script>
+    initPI(
+      function onReady(ws, ai) {
+        ws.send(JSON.stringify({
+          event: "sendToPlugin",
+          action: ai.action,
+          context: uuid,
+          payload: { request: "getProfileList" }
+        }));
+      },
+      function onMessage(msg) {
+        if (msg.event === "sendToPropertyInspector") {
+          var payload = msg.payload || {};
+          if (payload.event === "profileList") populateProfiles(payload.profiles || []);
+        }
+        if (msg.event === "didReceiveSettings") selectCurrent();
+      }
+    );
+
+    function populateProfiles(profiles) {
+      var select = document.getElementById("profile-select");
+      select.innerHTML = "";
+
+      if (profiles.length === 0) {
+        var opt = document.createElement("option");
+        opt.value = "";
+        opt.textContent = "No profiles found";
+        opt.disabled = true;
+        select.appendChild(opt);
+        return;
+      }
+
+      var placeholder = document.createElement("option");
+      placeholder.value = "";
+      placeholder.textContent = "Select a profile\u2026";
+      placeholder.disabled = true;
+      select.appendChild(placeholder);
+
+      profiles.forEach(function (profile) {
+        var opt = document.createElement("option");
+        opt.value = profile;
+        opt.textContent = profile;
+        select.appendChild(opt);
+      });
+
+      selectCurrent();
+    }
+
+    function selectCurrent() {
+      var select = document.getElementById("profile-select");
+      if (settings.profile) select.value = settings.profile;
+    }
+
+    function saveSettings() {
+      var val = document.getElementById("profile-select").value;
+      if (val) settings.profile = val;
+      sendSettings();
+    }
+
+    document.getElementById("profile-select").addEventListener("change", saveSettings);
+  </script>
+</body>
+</html>
