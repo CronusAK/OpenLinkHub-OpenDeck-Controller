@@ -5,6 +5,7 @@ OpenDeck plugin for controlling Corsair fan speed profiles and RGB via [OpenLink
 ## Requirements
 
 - OpenLinkHub running on `http://127.0.0.1:27003`
+- OpenDeck and a supported device
 - Linux
 
 ## Actions
