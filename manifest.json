@@ -19,7 +19,7 @@
   "SDKVersion": 2,
   "Actions": [
     {
-      "UUID": "com.sfgrimes.fanprofile.currentprofile",
+      "UUID": "com.sfgrimes.corsaircontrol.currentprofile",
       "Name": "Current Fan Profile",
       "Icon": "icons/fan",
       "Tooltip": "Displays the currently active fan speed profile.",
@@ -33,7 +33,7 @@
       ]
     },
     {
-      "UUID": "com.sfgrimes.fanprofile.setprofile",
+      "UUID": "com.sfgrimes.corsaircontrol.setprofile",
       "Name": "Set Fan Profile",
       "Icon": "icons/fan-set",
       "Tooltip": "Set the fan speed profile to the one selected in settings.",
@@ -48,7 +48,7 @@
       ]
     },
     {
-      "UUID": "com.sfgrimes.fanprofile.setrgb",
+      "UUID": "com.sfgrimes.corsaircontrol.setrgb",
       "Name": "Set RGB Profile",
       "Icon": "icons/rgb-set",
       "Tooltip": "Set the RGB lighting profile to the one selected in settings.",

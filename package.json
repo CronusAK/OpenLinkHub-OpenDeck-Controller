@@ -1,5 +1,5 @@
 {
-  "name": "com.sfgrimes.fanprofile",
+  "name": "com.sfgrimes.corsaircontrol",
   "version": "0.1.0",
   "description": "Fan Profile Control Plugin for OpenDeck",
   "main": "index.js",

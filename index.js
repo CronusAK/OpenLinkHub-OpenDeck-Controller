@@ -16,7 +16,7 @@ if (!port || !pluginUUID || !registerEvent) {
 }
 
 // --- Action UUID prefix ---
-const PREFIX = "com.sfgrimes.fanprofile.";
+const PREFIX = "com.sfgrimes.corsaircontrol.";
 
 // --- Context tracking ---
 // Map of context string -> { action, short, context, settings, lastKnownProfile }

@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-PLUGIN_NAME="com.sfgrimes.fanprofile"
+PLUGIN_NAME="com.sfgrimes.corsaircontrol"
 STAGE_DIR="${PLUGIN_NAME}.sdPlugin"
 
 cd "$(dirname "$0")"
