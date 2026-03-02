@@ -1,6 +1,6 @@
-# Fan Profile Control
+# Corsair Device Control
 
-OpenDeck plugin for controlling Corsair fan speed profiles via [OpenLinkHub](https://github.com/jurkovic-nikola/OpenLinkHub) on [OpenDeck](https://github.com/nekename/OpenDeck).
+OpenDeck plugin for controlling Corsair fan speed profiles and RGB via [OpenLinkHub](https://github.com/jurkovic-nikola/OpenLinkHub) on [OpenDeck](https://github.com/nekename/OpenDeck).
 
 ## Requirements
 
