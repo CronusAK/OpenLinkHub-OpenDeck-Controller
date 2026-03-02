@@ -62,9 +62,16 @@ const FAN_BG = `<g transform="translate(72,60)" opacity="0.12">
   <circle r="8" fill="#fff"/>
 </g>`;
 
+// RGB circles as a background watermark
+const RGB_BG = `<g transform="translate(72,58)" opacity="0.12">
+  <circle cx="-16" cy="-8" r="24" fill="#f44"/>
+  <circle cx="16" cy="-8" r="24" fill="#4f4"/>
+  <circle cx="0" cy="14" r="24" fill="#44f"/>
+</g>`;
+
 function renderSVG(label, profile) {
   const color = profileColor(profile);
-  const name = profile || "\u2014"; // em dash for unknown
+  const name = profile || "\u2014";
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="144" height="144">
 <rect width="144" height="144" fill="#000"/>
@@ -73,6 +80,30 @@ ${FAN_BG}
 <text x="72" y="84" text-anchor="middle" fill="#fff" font-size="26" font-family="sans-serif" font-weight="bold" textLength="120" lengthAdjust="spacingAndGlyphs">${name}</text>
 <rect x="12" y="114" width="120" height="8" rx="4" fill="#222"/>
 <rect x="12" y="114" width="120" height="8" rx="4" fill="${color}"/>
+</svg>`;
+}
+
+function renderRGBSVG(label, profile) {
+  const name = profile || "\u2014";
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="144" height="144">
+<rect width="144" height="144" fill="#000"/>
+${RGB_BG}
+<text x="72" y="28" text-anchor="middle" fill="#aaa" font-size="13" font-family="sans-serif" font-weight="500" opacity="0.9">${label}</text>
+<text x="72" y="84" text-anchor="middle" fill="#fff" font-size="26" font-family="sans-serif" font-weight="bold" textLength="120" lengthAdjust="spacingAndGlyphs">${name}</text>
+<defs>
+  <linearGradient id="rbow" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%"   stop-color="#f55"/>
+    <stop offset="17%"  stop-color="#ff5"/>
+    <stop offset="33%"  stop-color="#5f5"/>
+    <stop offset="50%"  stop-color="#5ff"/>
+    <stop offset="67%"  stop-color="#55f"/>
+    <stop offset="83%"  stop-color="#f5f"/>
+    <stop offset="100%" stop-color="#f55"/>
+  </linearGradient>
+</defs>
+<rect x="12" y="114" width="120" height="8" rx="4" fill="#222"/>
+<rect x="12" y="114" width="120" height="8" rx="4" fill="url(#rbow)"/>
 </svg>`;
 }
 
@@ -101,6 +132,9 @@ function updateContext(ctx) {
   } else if (ctx.short === "setprofile") {
     const profile = (ctx.settings && ctx.settings.profile) || null;
     setImage(ctx.context, renderSVG("\u2192 Set", profile));
+  } else if (ctx.short === "setrgb") {
+    const profile = (ctx.settings && ctx.settings.rgbProfile) || null;
+    setImage(ctx.context, renderRGBSVG("\u2192 Set RGB", profile));
   }
 }
 
@@ -176,6 +210,20 @@ ws.on("message", (raw) => {
             }
           }
         });
+      } else if (ctx.short === "setrgb") {
+        const profile = ctx.settings && ctx.settings.rgbProfile;
+        if (!profile) {
+          send({ event: "showAlert", context });
+          break;
+        }
+        openlinkhub.setRGBProfile(profile, (err) => {
+          if (err) {
+            console.error("Failed to set RGB profile:", err.message);
+            send({ event: "showAlert", context });
+            return;
+          }
+          send({ event: "showOk", context });
+        });
       }
       break;
     }
@@ -194,6 +242,12 @@ ws.on("message", (raw) => {
         openlinkhub.getProfileInfo((info) => {
           const profiles = (info && info.profiles) || ["Quiet", "Normal", "Performance"];
           sendToPropertyInspector(context, { event: "profileList", profiles });
+        });
+      }
+      if (payload && payload.request === "getRGBProfileList") {
+        openlinkhub.getRGBInfo((info) => {
+          const profiles = (info && info.profiles) || [];
+          sendToPropertyInspector(context, { event: "rgbProfileList", profiles });
         });
       }
       break;
