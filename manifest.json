@@ -4,7 +4,7 @@
   "Author": "sfgrimes",
   "Version": "0.1.0",
   "Icon": "icons/plugin",
-  "Category": "System",
+  "Category": "OpenLinkHub Controls",
   "CategoryIcon": "icons/plugin",
   "CodePathLin": "index.js",
   "OS": [
