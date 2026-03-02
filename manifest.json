@@ -46,6 +46,21 @@
           "TitleAlignment": "top"
         }
       ]
+    },
+    {
+      "UUID": "com.sfgrimes.fanprofile.setrgb",
+      "Name": "Set RGB Profile",
+      "Icon": "icons/rgb-set",
+      "Tooltip": "Set the RGB lighting profile to the one selected in settings.",
+      "Controllers": ["Keypad"],
+      "PropertyInspectorPath": "propertyInspector/rgbSettings.html",
+      "States": [
+        {
+          "Image": "icons/rgb-set",
+          "Name": "Default",
+          "TitleAlignment": "top"
+        }
+      ]
     }
   ]
 }
